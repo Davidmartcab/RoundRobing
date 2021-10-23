@@ -4,33 +4,31 @@ import java.io.*;
 public class Main {
 
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
     static ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-
     static ArrayList<Integer> rondas = new ArrayList<Integer>();
-    
     static ArrayList<Integer> turnos = new ArrayList<Integer>();
-
     static ArrayList<Integer> procesing = new ArrayList<Integer>();
-
     static ArrayList<Boolean> finish = new ArrayList<Boolean>();
-
     static ArrayList<String> resultado = new ArrayList<String>();
-
     static int count = 0;
     public static void main(String[] args) throws IOException{
         //Cantidad de procesos que se van a realizar.
-        int nProcesos = 5;
+        int nProcesos = 0;
 
         //Nº de quantum.
-        int quantum = 6;
+        int quantum = 10;
 
         //Rango de numeros para la generación aleatória.
-        int num = 10;
+        int num = 500;
 
         //1 = Aleatorio, 2 = Manual
         int elec = 1;
 
-        do{
+        if(elec != 2 && nProcesos < 1){
+
+        }else{
+            do{
             count = 0;
             rondas.clear();
             turnos.clear();
@@ -57,65 +55,8 @@ public class Main {
                 manual(nProcesos);
                 break;
                 default:
-                    // datos(nProcesos, num);
-                break;
-            }
-            order(nProcesos);
-            process(quantum);
-            if(count == 1){
-
-            }else{
-                System.out.println("\033[H\033[2J");
-                System.out.println("List: \n" + list);
-                System.out.println("Turnos: " + turnos);
-                System.out.println("Rondas: " + rondas);
-                see();
-                System.out.println("- : preparado.\nx : en ejecución.\n· : terminado.");
-            }
-        }while(count == 1);
-    }
-
-    static void submain() throws IOException{
-        //Cantidad de procesos que se van a realizar.
-        int nProcesos = 5;
-
-        //Nº de quantum.
-        int quantum = 6;
-
-        //Rango de numeros para la generación aleatória.
-        int num = 10;
-
-        //1 = Aleatorio, 2 = Manual
-        int elec = 1;
-
-        do{
-            rondas.clear();
-            turnos.clear();
-            procesing.clear();
-            finish.clear();
-            resultado.clear();
-            list.clear();
-            switch(elec){
-                case 1:
                     datos(nProcesos, num);
                 break;
-                case 2:
-                int f = 0;
-                while(f == 0){
-                    System.out.println("Dime cuantos procesos quieres hacer: ");
-                    String s = br.readLine();
-                    try {
-                        nProcesos = Integer.parseInt(s);
-                        f = 1;
-                    } catch (Exception e) {
-                        System.out.println("Error");
-                    }
-                }
-                manual(nProcesos);
-                break;
-                default:
-                    // datos(nProcesos, num);
-                break;
             }
             order(nProcesos);
             process(quantum);
@@ -129,10 +70,10 @@ public class Main {
                 see();
                 System.out.println("- : preparado.\nx : en ejecución.\n· : terminado.");
             }
-        }while(count == 1);
+            }while(count == 1);
+        }
         
     }
-
 
     static void datos(int nProcesos, int num){
 
