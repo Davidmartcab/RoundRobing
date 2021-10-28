@@ -17,7 +17,7 @@ public class Main {
         int nProcesos = 5;
 
         //Nº de quantum.
-        int quantum = 10;
+        int quantum = 1;
 
         //Número mínimo en la generación aleatória.
         int minNum = 5;
@@ -96,8 +96,8 @@ public class Main {
             prioridad = (int)prioridadD;
             llegada = i;
             //Los añado a la sbulista
-            subLista2.add(prioridad);
             subLista2.add(tiempo);
+            subLista2.add(prioridad);
             subLista2.add(llegada);
             //Añado la sublista a la Lista
             list.add(subLista2);
@@ -114,12 +114,12 @@ public class Main {
         for (int i = 0; i < nProcesos; i++) {
             int c = 0;
             for (int j = 0; j < nProcesos; j++) {
-                int priori1 = list.get(i).get(0), priori2 = list.get(j).get(0);
+                int priori1 = list.get(i).get(1), priori2 = list.get(j).get(1);
                 int llegada1 = list.get(i).get(2), llegada2 = list.get(j).get(2);
                 if (priori1 < priori2) {
                     c += 1;
                 }else if (priori1 == priori2){
-                    if(llegada1 < llegada2){
+                    if(llegada1 > llegada2){
                         c += 1;
                     }else{
 
@@ -148,7 +148,7 @@ public class Main {
                 int pos = rondas.get(i);
                 for (int j = 0; j < quantum; j++){
                     int procesando = procesing.get(pos);
-                    int tiempo = list.get(pos).get(1);
+                    int tiempo = list.get(pos).get(0);
                     boolean acabado = finish.get(pos);
                     if(acabado == true){
 
@@ -208,7 +208,7 @@ public class Main {
             int prio = 0, tiempo = 0;
             String n1 = "", frase = "";
             while(e == 0){
-                System.out.println("Dime el proceso Nº " + (i+1) + "(Prioridad-Tiempo): ");
+                System.out.println("Dime el proceso Nº " + (i+1) + "(Tiempo-Prioridad): ");
                 frase = br.readLine();
                 try {
                     for (int j = 0; j < frase.length(); j++){
