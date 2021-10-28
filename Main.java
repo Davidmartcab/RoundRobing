@@ -14,13 +14,16 @@ public class Main {
     static int count = 0;
     public static void main(String[] args) throws IOException{
         //Cantidad de procesos que se van a realizar.
-        int nProcesos = 0;
+        int nProcesos = 5;
 
         //Nº de quantum.
         int quantum = 10;
 
-        //Rango de numeros para la generación aleatória.
-        int num = 500;
+        //Número mínimo en la generación aleatória.
+        int minNum = 5;
+
+        //Número máximo en la generación aleatória, no puede ser igual que el minNum.
+        int maxNum = 10;
 
         //1 = Aleatorio, 2 = Manual
         int elec = 1;
@@ -38,24 +41,24 @@ public class Main {
             list.clear();
             switch(elec){
                 case 1:
-                    datos(nProcesos, num);
+                    datos(nProcesos, maxNum, minNum);
                 break;
                 case 2:
-                int f = 0;
-                while(f == 0){
-                    System.out.println("Dime cuantos procesos quieres hacer: ");
-                    String s = br.readLine();
-                    try {
-                        nProcesos = Integer.parseInt(s);
-                        f = 1;
-                    } catch (Exception e) {
-                        System.out.println("Error");
+                    int f = 0;
+                    while(f == 0){
+                        System.out.println("Dime cuantos procesos quieres hacer: ");
+                        String s = br.readLine();
+                        try {
+                            nProcesos = Integer.parseInt(s);
+                            f = 1;
+                        } catch (Exception e) {
+                            System.out.println("Error");
+                        }
                     }
-                }
-                manual(nProcesos);
+                    manual(nProcesos);
                 break;
                 default:
-                    datos(nProcesos, num);
+                    datos(nProcesos, maxNum, minNum);
                 break;
             }
             order(nProcesos);
@@ -64,9 +67,10 @@ public class Main {
 
             }else{
                 System.out.println("\033[H\033[2J");
-                System.out.println("List: \n" + list);
+                System.out.println("List: " + list);
                 System.out.println("Turnos: " + turnos);
                 System.out.println("Rondas: " + rondas);
+                System.out.println("");
                 see();
                 System.out.println("- : preparado.\nx : en ejecución.\n· : terminado.");
             }
@@ -75,16 +79,18 @@ public class Main {
         
     }
 
-    static void datos(int nProcesos, int num){
-
+    static void datos(int nProcesos, int maxNum, int minNum){
         int prioridad = 0, tiempo = 0, llegada = 0;
         double  prioridadD = 0, timepoD = 0;
-
+        int num = maxNum - minNum;
+        if(num <= 0){
+            num = 5;
+        }
         for (int i = 0; i < nProcesos; i++) {
             ArrayList<Integer> subLista2 = new ArrayList<Integer>();
             //Creo números aleatórios
-            timepoD = Math.random()*(num);
-            prioridadD = Math.random()*(num);
+            timepoD = (Math.random() * num + minNum);
+            prioridadD = (Math.random() * num + minNum);
             //Cambio de double a Int
             tiempo = (int)timepoD;
             prioridad = (int)prioridadD;
@@ -98,7 +104,7 @@ public class Main {
             procesing.add(0);
             rondas.add(0);
             finish.add(false);
-            resultado.add("");
+            resultado.add("PID " + (i+1) + ": ");
         }
     }
 
@@ -193,7 +199,6 @@ public class Main {
         for(int l = 0; l < resultado.size(); l++) {
             System.out.println(resultado.get(l)+"\n");
         }
-        System.out.println(finish);
     }
 
 
@@ -228,7 +233,7 @@ public class Main {
                     procesing.add(0);
                     rondas.add(0);
                     finish.add(false);
-                    resultado.add("");
+                    resultado.add("PID " + (i+1) + ": ");
                     
                     list.add(subL);
                     
